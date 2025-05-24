@@ -29,11 +29,6 @@ public class DoroTechController {
         return this.productRequestList;
     }
 
-    @DeleteMapping
-    public String delete() {
-        return "delete product";
-    }
-
     @GetMapping("/{id}")
     public ProductResponse getProductById(@PathVariable Long id){
         return ProductResponse.builder().build()
@@ -51,4 +46,11 @@ public class DoroTechController {
       return this.productService.getProducts().stream()
        .map(xpto -> ProductResponse.builder().build().toProductResponse(xpto)).toList();
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id){        
+        this.productService.deleteProduct(id);
+        return "product deleted with success";
+    }
+
 }

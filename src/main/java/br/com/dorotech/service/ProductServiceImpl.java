@@ -1,15 +1,12 @@
 package br.com.dorotech.service;
 
-import br.com.dorotech.model.ProductEntity;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import br.com.dorotech.repository.ProductRepository;
 import br.com.dorotech.service.domain.ProductDomain;
 import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -40,5 +37,10 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductDomain> getProducts() {
        return this.productRepository.findAll().stream()
        .map(it -> ProductDomain.builder().build().toProductDomain(it)).toList();
+    }
+
+    @Override
+    public void deleteProduct(Long Id) {
+       this.productRepository.deleteById(Id);
     }
 }
